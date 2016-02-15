@@ -1,6 +1,3 @@
----
-output: html_document
----
 ## Introduction
 This project explores potential relationships between Seattle's weather & reported crime. Below are some questions to be addressed.
 
