@@ -14,7 +14,7 @@ getTime <- function(x, year, mon, day)
 }
 
 myDF <- data.frame()
-years <- c(2008:2014)
+years <- c(2008:2015)
 
 for (i in seq_along(years))
 {
@@ -61,9 +61,12 @@ crime <- read.csv('Seattle_Police_Department_Police_Report_Incident.csv')
 # Get rid of unnecessary columns
 crime <- crime[, -c(1:6, 11, 14, 17:19)]
 
-# Only keep observations reported in relevant years
-reportedDatetime <- strptime(crime$Date.Reported, format = '%m/%d/%Y %I:%M:%S %p')
+# Only keep observations in relevant years
+reportedDatetime <- strptime(crime[,3], format = '%m/%d/%Y %I:%M:%S %p')
 crime <- crime[year(reportedDatetime) %in% years,]
 
-# Group crime offense types
+# Get rid of observations whose crime types are unclear or unnecessary
+index <- grep("INC - CASE DC USE ONLY|FALSE REPORT", crime[,1], ignore.case = TRUE)
+crime <- crime[-index,]
+
 
